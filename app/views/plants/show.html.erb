@@ -1,0 +1,55 @@
+<div class="row">
+  <div class="col-md-9">
+    <%= image_tag(@plant.picture_url, width: '100%') if @plant.picture.present? %>
+  </div>
+
+  <div class="col-md-3">
+    <div>
+    <p><b>Name: </b><%= @plant.name %></p>
+    <p><b>Description: </b><%= @plant.description %></p>
+    <p><b>Sunlight Required: </b><%= @plant.light %></p>
+    <p><b>Water: </b><%= @plant.water %></p>
+    <p><b>Fertiliser: </b><%= @plant.fertiliser %></p>
+    <p><b>Flower: </b><%= @plant.flower %></p>
+    <p><b>Fruit: </b><%= @plant.fruit %></p>
+    <p>
+      <%= link_to 'Edit', edit_plant_path(@plant) %> |
+      <%= link_to 'Back', plants_path %>
+    </p>
+    </div>
+    <br>
+    <div>
+    <h3>Comments</h3>
+      <% @comments.each do |comment| %>
+        <div>
+          <strong><%= comment.user_name %></strong>
+          <br>
+          <p><%= comment.body %></p>
+          <p><%= link_to 'Delete', comment_path(comment), method: :delete, data: { confirm: 'Are you sure?' } %></p>
+        </div>
+      <% end %>
+      <br>
+      <h3>New Comment</h3>
+      <%= render partial: 'comments/form', locals: { comment: @comment } %>
+    </div>
+  </div>
+</div>
+
+<%= form_tag(plants_path, method: :get) do %>
+    <%= label_tag(:q, "Search for:") %>
+    <%= text_field_tag(:q) %>
+    <%= submit_tag("Search") %>
+<% end %>
+
+<% if @results.present? %>
+  <h1>Food Found</h1>
+  <ul>
+    <% @results.each do |food| %>
+      <li><%= food["title"] %></li>
+      <%= image_tag food["thumbnail"] %>
+      <a href="<%= food["href"]%>">Website</a>
+      <p><%= food["ingredients"] %></p>
+      <br>
+    <% end %>
+  </ul>
+<% end %>
