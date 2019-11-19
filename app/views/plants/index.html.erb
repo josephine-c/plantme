@@ -9,14 +9,10 @@
         <%= image_tag plant.picture_url, width: '100%' if plant.picture.present? %>
         <h4><%= link_to plant.name, plant %></h4>
         <%= plant.description %>
-        <%= plant.light %>
-        <%= plant.water %>
-        <%= plant.fertiliser %>
-        <%= plant.flower %>
-        <%= plant.fruit %>
       </div>
     <% end %>
   </div>
+  <br>
 <% end %>
 
 <br>
